@@ -1,0 +1,35 @@
+html,
+body {
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: -webkit-fill-available;
+  overflow-x: hidden;
+  min-width: 280px;
+  width: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  min-width: 280px;
+  width: 100%;
+  min-height: -webkit-fill-available;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  position: relative;
+}
+
+main {
+  overflow: hidden;
+  min-width: 280px;
+  width: 100%;
+  min-height: 90svh;
+}

@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 import "./globals.css";
 
 // Fonts
@@ -11,17 +10,17 @@ const inter = Inter({
 import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Fable",
-  description: "A free blogging application",
+  description: "A free online blogging application",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: ReactNode;
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
   );
 }

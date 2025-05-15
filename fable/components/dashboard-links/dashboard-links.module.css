@@ -1,0 +1,3 @@
+.active {
+  color: hsl(var(--cyan-800)) !important;
+}

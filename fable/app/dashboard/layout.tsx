@@ -2,12 +2,12 @@ import {
   getKindeServerSession,
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/server";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
-import Logo from "@/public/icon-rounded.png";
+import Logo from "@/public/icon-transparent.png";
 import Image from "next/image";
 import styles from "./page.module.css";
+import { DashboardLinks } from "@/components/dashboard-links/dashboard-links";
 
 export default async function DashboardLayout({
   children,
@@ -21,24 +21,18 @@ export default async function DashboardLayout({
   return (
     <>
       <header className={styles.header}>
-        <div>
-          <Image src={Logo} alt="Logo" width={100} height={100} />
+        <div className={styles.logo}>
+          <Image src={Logo} alt="Logo" width={60} height={60} />
           <p>Fable</p>
         </div>
 
-        <ul>
-          <li>
-            <Link href="/dashboard">Dashboard</Link>
-          </li>
-          <li>
-            <Link href="/dashboard/sites">Sites</Link>
-          </li>
-          <li>
-            <Link href="/dashboard/pricing">Pricing</Link>
-          </li>
-        </ul>
+        <nav className={styles.nav}>
+          <DashboardLinks />
+        </nav>
 
-        <LogoutLink>Log out</LogoutLink>
+        <div className={styles.account}>
+          <LogoutLink>Log out</LogoutLink>
+        </div>
       </header>
       {children}
     </>

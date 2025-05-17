@@ -1,3 +1,5 @@
+import { LoginForm } from "@/components/auth/login-form";
+import { OAuthLogin } from "@/components/auth/oauth-login";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,9 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Github, User } from "lucide-react";
+import { User } from "lucide-react";
 import Link from "next/link";
 
 export default function LoginRoute() {
@@ -22,28 +22,18 @@ export default function LoginRoute() {
       </CardHeader>
       <CardContent className="flex flex-col gap-y-4">
         <div>
-          <Button className="bg-black text-white w-full">
-            <Github />
-            Github
-          </Button>
+          <OAuthLogin />
         </div>
 
         <p className="text-center text-muted-foreground">or</p>
 
-        <form className="flex flex-col gap-y-4">
-          <div className="grid gap-y-2">
-            <Label>Email</Label>
-            <Input />
-          </div>
-          <div className="grid gap-y-2">
-            <Label>Password</Label>
-            <Input />
-          </div>
-          <Button>Login</Button>
-        </form>
+        <LoginForm />
       </CardContent>
       <CardFooter>
-        <Button variant="link" className="text-muted-foreground text-sm mx-auto">
+        <Button
+          variant="link"
+          className="text-muted-foreground text-sm mx-auto"
+        >
           <Link href="/register">Don't have an account yet?</Link>
         </Button>
       </CardFooter>

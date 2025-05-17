@@ -1,4 +1,5 @@
-import { RegisterForm } from "@/components/register-form";
+import { OAuthLogin } from "@/components/auth/oauth-login";
+import { RegisterForm } from "@/components/auth/register-form";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,9 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Github, User } from "lucide-react";
+import { User } from "lucide-react";
 import Link from "next/link";
 
 export default function RegisterRoute() {
@@ -23,10 +22,7 @@ export default function RegisterRoute() {
       </CardHeader>
       <CardContent className="flex flex-col gap-y-4">
         <div>
-          <Button className="bg-black text-white w-full">
-            <Github />
-            Github
-          </Button>
+          <OAuthLogin />
         </div>
 
         <p className="text-center text-muted-foreground">or</p>

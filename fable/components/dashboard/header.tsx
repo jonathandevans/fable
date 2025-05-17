@@ -9,12 +9,12 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
 import { CircleUser } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { DropdownMenuSeparator } from "./ui/dropdown-menu";
+import { DropdownMenuSeparator } from "../ui/dropdown-menu";
 
 const navLinks = [
   { name: "Dashboard", href: "/dashboard" },
@@ -22,7 +22,7 @@ const navLinks = [
   { name: "Pricing", href: "/dashboard/pricing" },
 ];
 
-export function DashboardNav() {
+export function DashboardHeader() {
   const pathname = usePathname();
 
   return (

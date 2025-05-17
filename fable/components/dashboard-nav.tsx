@@ -2,11 +2,16 @@
 
 import Image from "next/image";
 import Logo from "@/public/icon-transparent.png";
-import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs";
 import Link from "next/link";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
-import { CircleUser, Menu } from "lucide-react";
+import { CircleUser } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { DropdownMenuSeparator } from "./ui/dropdown-menu";
@@ -52,9 +57,7 @@ export function DashboardNav() {
           <DropdownMenuContent>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <LogoutLink>Log out</LogoutLink>
-            </DropdownMenuItem>
+            <DropdownMenuItem asChild>Log out</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

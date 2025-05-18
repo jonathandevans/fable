@@ -1,19 +1,20 @@
 "use client";
 
-import { FormEvent, startTransition, useActionState, useEffect, useRef } from "react";
+import {
+  FormEvent,
+  useActionState,
+  useRef,
+  useTransition,
+} from "react";
 import { createAccountAction } from "@/app/(auth)/actions";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 
 export function RegisterForm() {
-  const router = useRouter();
-  const [data, createAccount, pending] = useActionState(
-    createAccountAction,
-    undefined
-  );
+  const [state, createAccount] = useActionState(createAccountAction, undefined);
+  const [pending, startTransition] = useTransition();
   const errorRef = useRef<HTMLParagraphElement>(null);
   const emailErrorRef = useRef<HTMLParagraphElement>(null);
   const passwordErrorRef = useRef<HTMLParagraphElement>(null);
@@ -24,7 +25,8 @@ export function RegisterForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
     let valid = true;
 
     if (formData.get("email") === "") {
@@ -51,21 +53,15 @@ export function RegisterForm() {
       valid = false;
     }
 
-    if (!valid) return;
-
-    startTransition(() => {
-      createAccount(formData);
-    });
+    if (valid) startTransition(() => createAccount(formData));
   };
 
-  useEffect(() => {
-    if (data?.redirect) {
-      router.push(data.redirect);
-    }
-  }, [data])
-
   return (
-    <form className="flex flex-col gap-y-4" onSubmit={handleSubmit}>
+    <form
+      className="flex flex-col gap-y-4"
+      onSubmit={handleSubmit}
+      action={createAccount}
+    >
       <div className="grid gap-y-2">
         <Label>Email</Label>
         <Input
@@ -115,7 +111,7 @@ export function RegisterForm() {
         <p className="text-xs text-red-500" ref={retypeErrorRef} />
       </div>
       <p className="text-xs text-red-500" ref={errorRef}>
-        {data?.error}
+        {state?.error}
       </p>
       <Button disabled={pending}>
         {pending ? (

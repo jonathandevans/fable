@@ -21,9 +21,7 @@ export default function RegisterRoute() {
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-4">
-        <div>
-          <OAuthLogin />
-        </div>
+        <OAuthLogin />
 
         <p className="text-center text-muted-foreground">or</p>
 

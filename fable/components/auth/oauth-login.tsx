@@ -2,41 +2,66 @@
 
 import { oAuthLoginAction } from "@/app/(auth)/actions";
 import { Button } from "../ui/button";
-import { Github, Loader2 } from "lucide-react";
-import { startTransition, useActionState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { Github, Loader2, LucideProps } from "lucide-react";
+import {
+  ForwardRefExoticComponent,
+  RefAttributes,
+  startTransition,
+  useActionState,
+  useEffect,
+  useState,
+} from "react";
+import { Provider } from "@supabase/supabase-js";
 
 export function OAuthLogin() {
-  const router = useRouter();
-  const [data, login, pending] = useActionState(oAuthLoginAction, undefined);
+  return (
+    <div className="grid gap-y-4">
+      <SocialLink name="Github" provider="github" Icon={Github} />
+    </div>
+  );
+}
+
+function SocialLink({
+  name,
+  provider,
+  Icon,
+}: {
+  name: string;
+  provider: Provider;
+  Icon: ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+  >;
+}) {
+  const [state, login, pending] = useActionState(oAuthLoginAction, undefined);
+  const [loading, setLoading] = useState<boolean>(false);
+
   useEffect(() => {
-    if (data?.redirect) {
-      router.push(data.redirect);
+    if (state?.url) {
+      setLoading(true);
+      window.location.href = state.url;
     }
-  }, [data]);
+  }, [state]);
 
   return (
-    <>
+    <div className="grid gap-y-2">
       <Button
         className="bg-black text-white w-full"
-        onClick={async () => {
-          startTransition(() => login("github"));
-        }}
-        disabled={pending}
+        disabled={pending || loading}
+        onClick={() => startTransition(() => login(provider))}
       >
-        {pending ? (
+        {pending || loading ? (
           <>
             <Loader2 className="size-4 animate-spin" />
             Please wait...
           </>
         ) : (
           <>
-            <Github className="size-4" />
-            Login with Github
+            <Icon className="size-4" />
+            Login with {name}
           </>
         )}
       </Button>
-      <p className="text-xs text-red-500 mt-2">{data?.error}</p>
-    </>
+      {state?.error && <p className="text-xs text-red-500">{state.error}</p>}
+    </div>
   );
 }

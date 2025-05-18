@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import Logo from "@/public/icon-transparent.png";
 import Link from "next/link";
 import {
   DropdownMenu,
@@ -28,7 +26,6 @@ export function DashboardHeader() {
   return (
     <header className="grid grid-cols-3 justify-between items-center max-w-7xl mx-auto py-2 px-[2%] border-b border-zinc-300">
       <div className="flex items-center">
-        <Image src={Logo} alt="Logo" width={60} height={60} />
         <p className="font-semibold text-primary">Fable</p>
       </div>
 

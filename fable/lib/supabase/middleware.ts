@@ -44,7 +44,14 @@ function protectRoutes(
 ) {
   const createRedirectResponse = (url: string) => {
     const _url = request.nextUrl.clone();
-    _url.pathname = url;
+
+    const [path, query] = url.split("?");
+    _url.pathname = path;
+
+    if (query) {
+      _url.search = `?${query}`;
+    }
+
     const response = NextResponse.redirect(_url);
     supabaseResponse.cookies.getAll().forEach(({ name, value }) => {
       response.cookies.set(name, value);

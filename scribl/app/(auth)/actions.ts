@@ -97,3 +97,19 @@ export async function confirmEmail(userId: string) {
     };
   }
 }
+
+export async function onboardUser(prevState: any, formData: FormData) {
+  const supabase = await createServerClient();
+  const { error } = await supabase.from("users").insert({
+    id: formData.get("userId"),
+    first_name: formData.get("first_name"),
+    last_name: formData.get("last_name"),
+    username: formData.get("username"),
+  });
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return redirect("/dashboard");
+}

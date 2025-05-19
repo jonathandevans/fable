@@ -1,2 +1,2 @@
-# fable
+# scribl
 A blogging application

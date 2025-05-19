@@ -1,5 +1,5 @@
 import { createServerClient } from "@supabase/ssr";
-import { User } from "@supabase/supabase-js";
+import { SupabaseClient, User } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function updateSession(request: NextRequest) {
@@ -34,12 +34,13 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  return protectRoutes(user, request, supabaseResponse);
+  return await protectRoutes(user, request, supabase, supabaseResponse);
 }
 
-function protectRoutes(
+async function protectRoutes(
   user: User | null,
   request: NextRequest,
+  supabase: SupabaseClient,
   supabaseResponse: NextResponse
 ) {
   const createRedirectResponse = (url: string) => {
@@ -73,6 +74,13 @@ function protectRoutes(
       request.nextUrl.pathname.startsWith("/register"))
   ) {
     return createRedirectResponse("/dashboard");
+  }
+
+  if (user && request.nextUrl.pathname.startsWith("/dashboard")) {
+    const onboarded = await supabase.from("users").select("username");
+    if (onboarded.data?.length != 1) {
+      return createRedirectResponse("/onboarding");
+    }
   }
 
   return supabaseResponse;

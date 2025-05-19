@@ -1,17 +1,15 @@
 import "./globals.css";
 
 // Fonts
-import { Inter } from "next/font/google";
-const inter = Inter({
+import { Roboto } from "next/font/google";
+const roboto = Roboto({
   subsets: ["latin"],
 });
 
 // Metadata
-import type { Metadata } from "next";
-export const metadata: Metadata = {
-  title: "Fable",
-  description: "A free online blogging application",
-};
+import { Metadata } from "next";
+import { metadata as _metadata } from "@/lib/utils";
+export const metadata: Metadata = _metadata();
 
 export default function RootLayout({
   children,
@@ -20,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} antialiased`}>{children}</body>
+      <body className={`${roboto.className} antialiased`}>{children}</body>
     </html>
   );
 }

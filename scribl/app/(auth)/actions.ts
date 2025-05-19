@@ -98,12 +98,12 @@ export async function confirmEmail(userId: string) {
   }
 }
 
-export async function onboardUser(prevState: any, formData: FormData) {
+export async function onboardUserAction(prevState: any, formData: FormData) {
   const supabase = await createServerClient();
   const { error } = await supabase.from("users").insert({
     id: formData.get("userId"),
-    first_name: formData.get("first_name"),
-    last_name: formData.get("last_name"),
+    first_name: formData.get("firstName"),
+    last_name: formData.get("lastName"),
     username: formData.get("username"),
   });
 
@@ -112,4 +112,15 @@ export async function onboardUser(prevState: any, formData: FormData) {
   }
 
   return redirect("/dashboard");
+}
+
+export async function logoutAction() {
+  const { auth } = await createServerClient();
+  const { error } = await auth.signOut();
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return redirect("/");
 }

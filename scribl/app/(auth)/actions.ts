@@ -100,6 +100,11 @@ export async function confirmEmail(userId: string) {
 
 export async function onboardUserAction(prevState: any, formData: FormData) {
   const supabase = await createServerClient();
+  const { data } = await supabase
+    .from("sites")
+    .select()
+    .eq("slug", formData.get("username"));
+
   const { error } = await supabase.from("users").insert({
     id: formData.get("userId"),
     first_name: formData.get("firstName"),

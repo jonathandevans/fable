@@ -51,14 +51,14 @@ export function NewSiteForm() {
             <Textarea />
           </div>
           <div className="grid gap-y-2">
-            <RadioGroup defaultValue="option-one">
+            <RadioGroup defaultValue="public">
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="option-one" id="option-one" />
-                <Label htmlFor="option-one">Public</Label>
+                <RadioGroupItem value="public" id="option-public" />
+                <Label htmlFor="option-public">Public</Label>
               </div>
               <div className="flex items-center space-x-2">
-                <RadioGroupItem value="option-two" id="option-two" />
-                <Label htmlFor="option-two">Private</Label>
+                <RadioGroupItem value="private" id="option-private" />
+                <Label htmlFor="option-private">Private</Label>
               </div>
             </RadioGroup>
           </div>
